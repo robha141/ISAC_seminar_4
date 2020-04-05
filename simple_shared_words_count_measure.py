@@ -12,6 +12,7 @@ class Vector:
         self.queryTokens = map(lambda token: QueryToken(token), query)
 
     def add_hit(self, token):
+        print(self.queryTokens.count)
         for queryToken in self.queryTokens:
             if queryToken.token == token:
                 queryToken.hits += 1
@@ -19,6 +20,12 @@ class Vector:
     # Returns vector as array of int
     def get_vector_value(self):
         return map(lambda queryToken: queryToken.hits, self.queryTokens)
+
+    def __str__(self):
+        values = []
+        for query in self.queryTokens:
+            values.append(query.hits)
+        return str(values)
 
 class DocumentVectorizer:
     def __init__(self, document):
@@ -29,7 +36,7 @@ class DocumentVectorizer:
         vector = Vector(query)
         for token in document_tokens:
             vector.add_hit(token)
-        return vector.get_vector_value
+        return vector
 
 
 search = "more"
@@ -43,5 +50,4 @@ for document in documents:
     vectorizer = DocumentVectorizer(document)
     vector = vectorizer.generate_vector(query)
     print(vector)
-
 
