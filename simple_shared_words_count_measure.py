@@ -1,53 +1,39 @@
 from common import *
 
-file_name = 'test.txt'
+# Classes
 
-class QueryToken:
-    def __init__(self, token):
-        self.token = token
-        self.hits = 0
-
-class Vector:
-    def __init__(self, query):
-        self.queryTokens = map(lambda token: QueryToken(token), query)
-
-    def add_hit(self, token):
-        print(self.queryTokens.count)
-        for queryToken in self.queryTokens:
-            if queryToken.token == token:
-                queryToken.hits += 1
-
-    # Returns vector as array of int
-    def get_vector_value(self):
-        return map(lambda queryToken: queryToken.hits, self.queryTokens)
-
-    def __str__(self):
-        values = []
-        for query in self.queryTokens:
-            values.append(query.hits)
-        return str(values)
-
-class DocumentVectorizer:
+class Result:
     def __init__(self, document):
         self.document = document
+        self.tokenized_document = tokenize(document)
+        self.vector = []
 
-    def generate_vector(self, query):
-        document_tokens = tokenize(self.document)
-        vector = Vector(query)
-        for token in document_tokens:
-            vector.add_hit(token)
-        return vector
+    def calculateVector(self, query):
+        for word in query:
+            w = self.calculateW(word)
+            self.vector.append(w)
 
+    def calculateW(self, word):
+        if word in self.tokenized_document:
+            return 1
+        else:
+            return 0
 
-search = "more"
-query = "more"
+# Main
+
+file_name = 'test.txt'
+search = 'more data'
 
 print('🔥 First task 🔥\n')
 
 documents = create_documents_from_file(file_name)
 query = tokenize(search)
-for document in documents:
-    vectorizer = DocumentVectorizer(document)
-    vector = vectorizer.generate_vector(query)
-    print(vector)
+results = []
 
+for document in documents:
+    result = Result(document)
+    result.calculateVector(query)
+    results.append(result)
+
+for result in results:
+    print(result.vector)
