@@ -49,7 +49,7 @@ class Result:
 
 # Main
 
-print('🔥 First task 🔥\n')
+print('🔥 Shared words count with bonus 🔥\n')
 
 file_name = 'data.txt'
 search = 'active learning'
@@ -80,5 +80,3 @@ for document in documents:
 results.sort(key = lambda result: result.result, reverse = True)
 for result in results[:10]:
     print(result)
-
-    
