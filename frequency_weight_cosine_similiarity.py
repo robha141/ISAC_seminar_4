@@ -15,7 +15,7 @@ class Result:
 print('🔥 Cosine similarity measure using only the term frequency weight 🔥\n')
 
 file_name = 'data.txt'
-search = 'active data'
+search = 'active learning'
 try:
     search = sys.argv[1]
     print('Using query: \'' + search + '\'')
@@ -27,12 +27,6 @@ try:
     print('Using file: \'' + file_name + '\'')
 except IndexError:
     print('No file name provided, using \'data.txt\'')  
-
-# lebo tam ma napadá:
-# získame si query vector
-# 	z každého dokumentu si spravíme vektor a normalizujme ho (keď robím term frequency, inak ešte musím vynásobiť tou konštantou na inverse document frequency)
-# 	spravíme cosine simularity týchto dvoch vectorov
-# 	uložím a zoradím
 
 documents = create_documents_from_file(file_name)
 query = tokenize(search)
