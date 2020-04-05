@@ -3,6 +3,7 @@
 import sys
 import csv
 import pandas
+import numpy
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -32,11 +33,12 @@ class SharedWorldCountResult:
     def __init__(self, document):
         self.document = document
         self.vector = []
+        self.res = 0
 
 
 def print_raw_results(results):
     for swcr in results:
-        print(swcr.document, ": ", swcr.vector)
+        print(swcr.document, ": ", swcr.vector, ", ", swcr.res)
 
 
 abstracts = create_documents_from_file('data.csv')
@@ -57,7 +59,10 @@ for file in abstracts:
             result.vector.append(1)
         else:
             result.vector.append(0)
+    result.res = numpy.dot(result.vector, result.vector)
     fileIndex = fileIndex + 1
     results.append(result)
+
+results.sort(key = lambda result: result.res, reverse = True)
 
 print_raw_results(results)
