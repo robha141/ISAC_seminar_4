@@ -40,6 +40,7 @@ class Result:
 
     def calculate_w(self, word):
         if word.word in self.tokenized_document:
+            # Bunus is aplied here
             return 1 + word.bonus
         else:
             return 0
