@@ -45,7 +45,9 @@ for document in documents:
     for word in tokenizedDocument:
         if word in query:
             index_of_word = query.index(word)
+            # Add +1 to each term found
             term_frequency[index_of_word] += 1
+    # We don't have to normalize values, cosine similiarity will take care of that
     document_vector = Vector(term_frequency)
     cosine_similiarity = document_vector.cosine_similarity(query_vector)
     result = Result(document, cosine_similiarity)
