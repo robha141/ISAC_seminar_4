@@ -52,7 +52,9 @@ class Vector:
 
     # Returns new normalized vector, not changing current value
     def normalized(self):
-        values_pow_two = list(map(lambda x: x**2, values))
+        values_pow_two = list(map(lambda x: x**2, self.values))
         magnitude = math.sqrt(functools.reduce(lambda x, y: x + y, values_pow_two))
-        normalized = list(map(lambda x: x * (1 / magnitude), values))
+        if magnitude == 0:
+            return Vector(self.values)
+        normalized = list(map(lambda x: x * (1 / magnitude), self.values))
         return Vector(normalized)
