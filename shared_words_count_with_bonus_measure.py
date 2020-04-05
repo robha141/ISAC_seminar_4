@@ -1,4 +1,5 @@
 from common import *
+import sys
 
 # Classes
 
@@ -48,10 +49,21 @@ class Result:
 
 # Main
 
+print('🔥 First task 🔥\n')
+
 file_name = 'data.txt'
 search = 'active learning'
+try:
+    search = sys.argv[1]
+    print('Using query: \'' + search + '\'')
+except IndexError:
+    print('No query provided, using \'active learning\'')  
 
-print('🔥 First task 🔥\n')
+try:
+    file_name = sys.argv[2]
+    print('Using file: \'' + file_name + '\'')
+except IndexError:
+    print('No file name provided, using \'data.txt\'')  
 
 documents = create_documents_from_file(file_name)
 tokenizedSerach = tokenize(search)
